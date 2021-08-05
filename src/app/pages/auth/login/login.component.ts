@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy))
     .subscribe((res) => {
       if (res) {
-        this.router.navigate(['']);
+        this.router.navigate(['/admin/mascotas']);
       }
     })
   }

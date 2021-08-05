@@ -13,11 +13,26 @@ export class MascotasService {
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
-  getAll(): void {}
+  lista(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${environment.URL_API}/mascota`)
+      .pipe(catchError((err) => this.handleError(err)));
+  }
 
   getById(): void {}
 
   new(): void {}
 
   update(): void {}
+
+  private handleError(err: any): Observable<never> {
+    let errorMessage = "Ocurrio un error";
+
+    if(err){
+      errorMessage = `Error: ${ typeof err.error.message == 'undefined' ? err.message : err.error.message }`;
+      this._snackBar.open(errorMessage, '', {
+        duration: 6000
+      });
+    }
+    return throwError(errorMessage);
+  }
 }

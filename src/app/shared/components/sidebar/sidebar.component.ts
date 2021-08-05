@@ -17,13 +17,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(private authSvc: AuthService) { }
 
   ngOnInit(): void {
-    this.lstMenu = [
-      {
-        nombre: 'Mascotas',
-        icono: 'pets',
-        ruta: '/admin/mascotas'
-      }
-    ];
+    this.authSvc.user$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(user => {
+      this.lstMenu = [];
+      if(user){
+        this.lstMenu = [
+          {
+            nombre: 'Mascotas',
+            icono: 'pets',
+            ruta: '/admin/mascotas'
+          }
+        ]}
+    })
   }
 
   ngOnDestroy(): void {

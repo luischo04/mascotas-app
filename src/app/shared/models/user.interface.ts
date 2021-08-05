@@ -10,4 +10,8 @@ export interface UserResponse {
     username: string;
     apellidos: string;
     nombre: string;
+    nombreMascota: string;
+    nomRaza: string;
+    descripcion: string;
+    fechaAdopcion: Date;
 }
