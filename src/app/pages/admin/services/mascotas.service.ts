@@ -37,6 +37,11 @@ export class MascotasService {
     .pipe(catchError((error) => this.handleError(error)));
   }
 
+  delete(cveMascota: number): Observable<any> {
+    return this.http.delete<any>(`${environment.URL_API}/mascota/${cveMascota}`)
+    .pipe(catchError((error) => this.handleError(error)));
+  }
+
   private handleError(err: any): Observable<never> {
     let errorMessage = "Ocurrio un error";
 
