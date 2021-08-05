@@ -9,8 +9,8 @@ import { User, UserResponse } from '@app/shared/models/user.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 enum Action{
-  EDIT = "",
-  NEW = ""
+  EDIT = "edit",
+  NEW = "new"
 }
 
 @Component({
@@ -26,7 +26,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     razas : Raza[] = [];
 
     mascotaForm = this.fb.group({
-      cveUsuario: [''],
+      cveMascota: [''],
       cvePropietario : [this.authSvc.userValue?.cveUsuario],
       nombreMascota : ['', [Validators.required]],
       fechaAdopcion : ['', [Validators.required]],
@@ -43,6 +43,8 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     if(this.data?.user.hasOwnProperty("cveMascota")){
       this.actionTODO = Action.EDIT;
       this.data.title = "Editar usuario"
+      this.mascotaForm.updateValueAndValidity();
+      this.editar();
     }
   }
 
@@ -77,9 +79,27 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
       });
     } else {
       // Update
+      const { ...rest } = formValue;
+      this.MascotasSvc.update(rest)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this._snackBar.open(result.message, '', {
+          duration: 6000
+        });
+        this.dialogRef.close(true);  
+      });
     }
 
     console.log(this.MascotasSvc);
+  }
+
+  private editar(): void {
+    this.mascotaForm.patchValue({
+      cveMascota : this.data?.user.cveMascota,
+      nombreMascota : this.data?.user.nombreMascota,
+      fechaAdopcion : this.data?.user.fechaAdopcion,
+      raza : this.data?.user.raza
+    });
   }
 
   getErrorMessage(field: string): string{

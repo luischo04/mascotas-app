@@ -28,6 +28,10 @@ export class MascotasComponent implements OnInit, OnDestroy {
   constructor(private mascotasSvc: MascotasService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.listMascotas();
+  }
+
+  private listMascotas(): void {
     this.mascotasSvc.lista()
     .pipe(takeUntil(this.destroy$))
     .subscribe(users => this.lstUsers = users);
@@ -37,6 +41,14 @@ export class MascotasComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ModalFormularioComponent, {
       disableClose: true,
       data: {title: 'Nuevo usuario', user}
+    });
+
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      if(result){
+        this.listMascotas();
+      }
     });
   }
 

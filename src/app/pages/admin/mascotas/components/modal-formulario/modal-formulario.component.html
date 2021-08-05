@@ -38,7 +38,7 @@
         <mat-icon>cancel</mat-icon>
         Cancelar
     </button>
-    <button mat-raised-button color="primary" (click)="onSave()">
+    <button [disabled]="mascotaForm.invalid" mat-raised-button color="primary" (click)="onSave()">
         <mat-icon>save</mat-icon>
         Guardar
     </button>
