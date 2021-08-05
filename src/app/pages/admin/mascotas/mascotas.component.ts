@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '@app/pages/auth/auth.service';
 import { DialogoConfirmacionComponent } from '@app/shared/component/dialogo-confirmacion/dialogo-confirmacion.component';
 import { UserResponse } from '@app/shared/models/user.interface';
 import { Subject } from 'rxjs';
@@ -27,14 +28,15 @@ export class MascotasComponent implements OnInit, OnDestroy {
   ];
   lstUsers: UserResponse[] = [];
 
-  constructor(private mascotasSvc: MascotasService, private dialog: MatDialog, private _snackbar: MatSnackBar) { }
+  constructor(private mascotasSvc: MascotasService, private dialog: MatDialog, private _snackbar: MatSnackBar, private authSvc: AuthService) { }
 
   ngOnInit(): void {
     this.listMascotas();
   }
 
   private listMascotas(): void {
-    this.mascotasSvc.lista()
+    const result = this.authSvc.userValue?.username!;
+    this.mascotasSvc.lista(result)
     .pipe(takeUntil(this.destroy$))
     .subscribe(users => this.lstUsers = users);
   }

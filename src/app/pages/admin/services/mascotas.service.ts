@@ -14,8 +14,8 @@ export class MascotasService {
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
-  lista(): Observable<UserResponse[]> {
-    return this.http.get<UserResponse[]>(`${environment.URL_API}/mascota`)
+  lista(username: string): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${environment.URL_API}/mascota/listaByUsuario/${username}`)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
