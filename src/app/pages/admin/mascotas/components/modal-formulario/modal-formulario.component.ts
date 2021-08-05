@@ -89,8 +89,6 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
         this.dialogRef.close(true);  
       });
     }
-
-    console.log(this.MascotasSvc);
   }
 
   private editar(): void {

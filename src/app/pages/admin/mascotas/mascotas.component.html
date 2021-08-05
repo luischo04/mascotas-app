@@ -27,7 +27,7 @@
             <!-- Columna nombre de usuario -->
             <ng-container matColumnDef="fechaAdopcion">
               <th mat-header-cell *matHeaderCellDef> Fecha de adopcion </th>
-              <td mat-cell *matCellDef="let user"> {{user.fechaAdopcion | date: "EEEE MMMM d y"}} </td>
+              <td mat-cell *matCellDef="let user"> {{user.fechaAdopcion | date: "MM/dd/yyyy"}} </td>
             </ng-container>
 
             <!-- Columna fecha registro -->
