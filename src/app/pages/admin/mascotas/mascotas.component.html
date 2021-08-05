@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Usuario</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="divStyle">
+            <button type="button" mat-raised-button color="primary" style="margin: 2ch;" (click)="onOpenModal()">
+                <mat-icon>add</mat-icon>
+                <span>Agregar</span>
+            </button>
+        </div>
+
+        <table mat-table [dataSource]="lstUsers" class="mat-elevation-z8">
+
+            <!-- Columna nombre -->
+            <ng-container matColumnDef="nombreMascota">
+              <th mat-header-cell *matHeaderCellDef> Nombre de la mascota </th>
+              <td mat-cell *matCellDef="let user"> {{user.nombreMascota}} </td>
+            </ng-container>
+
+            <!-- Columna Apellidos -->
+            <ng-container matColumnDef="nomRaza">
+              <th mat-header-cell *matHeaderCellDef> Raza </th>
+              <td mat-cell *matCellDef="let user"> {{user.nomRaza}} </td>
+            </ng-container>
+
+            <!-- Columna nombre de usuario -->
+            <ng-container matColumnDef="fechaAdopcion">
+              <th mat-header-cell *matHeaderCellDef> Fecha de adopcion </th>
+              <td mat-cell *matCellDef="let user"> {{user.fechaAdopcion | date: "EEEE MMMM d y"}} </td>
+            </ng-container>
+
+            <!-- Columna fecha registro -->
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef> Caracteristicas de la mascota </th>
+              <td mat-cell *matCellDef="let user"> {{ user.descripcion }} </td>
+            </ng-container>
+
+            <!-- Columna Editar -->
+            <ng-container matColumnDef="editar">
+              <th mat-header-cell *matHeaderCellDef> Editar </th>
+              <td mat-cell *matCellDef="let user">
+                <button type="button" mat-icon-button color="primary" (click)="onOpenModal(user)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Columna Eliminar -->
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="warn" (click)="onDelete(user.cveMascota)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+    </mat-card-content>
+</mat-card>
