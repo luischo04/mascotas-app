@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Raza } from '@app/shared/models/raza.interface';
 import { UserResponse } from '@app/shared/models/user.interface';
 import { environment } from '@env/environment';
 import { Observable, throwError } from 'rxjs';
@@ -18,9 +19,18 @@ export class MascotasService {
       .pipe(catchError((err) => this.handleError(err)));
   }
 
+  getRaza(): Observable<Raza[]> {
+    return this.http.get<Raza[]>(`${environment.URL_API}/general/razas`).
+    pipe(catchError((error) => 
+      this.handleError(error)));
+  }
+
   getById(): void {}
 
-  new(): void {}
+  new(user: UserResponse): Observable<any> {
+    return this.http.put<any>(`${environment.URL_API}/mascota`, user)
+    .pipe(catchError((error) => this.handleError(error)));
+  }
 
   update(): void {}
 

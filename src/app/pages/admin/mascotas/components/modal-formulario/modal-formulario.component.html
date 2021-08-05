@@ -1,27 +1,33 @@
 <h2 mat-dialog-title>{{ data?.title }}</h2>
 <mat-dialog-content>
-    <form>
+    <form [formGroup]="mascotaForm">
 
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre de la mascota: </mat-label>
-            <input matInput required>
+            <input formControlName="nombreMascota" matInput required>
+            <mat-error>
+                {{ getErrorMessage('nombreMascota') }}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width"  appearance="outline">
             <mat-label> Fecha de adopcion: </mat-label>
-            <input matInput type="date" required>
+            <input matInput formControlName="fechaAdopcion" type="date" required>
+            <mat-error>
+                {{ getErrorMessage('fechaAdopcion') }}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Raza</mat-label>
-            <mat-select>
+            <mat-select formControlName="raza">
+                <mat-option *ngFor="let raza of razas" [value]="raza.idRaza">
+                    {{ raza.nomRaza }}
+                </mat-option>
             </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Propietario</mat-label>
-            <mat-select>
-            </mat-select>
+            <mat-error>
+                {{ getErrorMessage('idRaza') }}
+            </mat-error>
         </mat-form-field>
 
     </form>
@@ -32,7 +38,7 @@
         <mat-icon>cancel</mat-icon>
         Cancelar
     </button>
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="primary" (click)="onSave()">
         <mat-icon>save</mat-icon>
         Guardar
     </button>
