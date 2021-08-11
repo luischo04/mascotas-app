@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MascotasRoutingModule } from './mascotas-routing.module';
 import { MascotasComponent } from './mascotas.component';
 import { MaterialModule } from '@app/material.modules';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MaterialModule } from '@app/material.modules';
   imports: [
     CommonModule,
     MascotasRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class MascotasModule { }

@@ -28,7 +28,7 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     mascotaForm = this.fb.group({
       cveMascota: [''],
       cvePropietario : [this.authSvc.userValue?.cveUsuario],
-      nombreMascota : ['', [Validators.required]],
+      nombreMascota : ['', [Validators.required, Validators.maxLength(350)]],
       fechaAdopcion : ['', [Validators.required]],
       raza : ['', [Validators.required]]
     })
@@ -100,20 +100,19 @@ export class ModalFormularioComponent implements OnInit, OnDestroy {
     });
   }
 
-  getErrorMessage(field: string): string{
+  getErrorMessage(field: string): string {
     let message = "";
+    const campo = this.mascotaForm?.get(field);
 
-    const element = this.mascotaForm.get(field);
-
-    if(element?.errors){
-      const messages: any = {
-        required : "Este campo es requerido"
-      };
-
-      const errorKey = Object.keys(element?.errors).find(Boolean);
-      message = String(messages[String(errorKey)]);
+    if(campo != null){
+      if(campo.errors?.required){
+        message = "Este campo es requerido";
+      } else if(campo.errors?.email){
+        message = "El formato no es correcto";
+      } else if(campo.errors?.maxlength){
+        message = "Los caracteres maximos son 350";
+      }
     }
-
     return message;
   }
 

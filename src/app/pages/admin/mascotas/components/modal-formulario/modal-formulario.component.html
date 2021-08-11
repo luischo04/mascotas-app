@@ -5,18 +5,30 @@
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre de la mascota: </mat-label>
             <input formControlName="nombreMascota" matInput required>
+            <!-- <mat-hint align="end">{{message.value.length}} / 350</mat-hint> -->
             <mat-error>
                 {{ getErrorMessage('nombreMascota') }}
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width"  appearance="outline">
+        <!-- <mat-form-field class="full-width"  appearance="outline">
             <mat-label> Fecha de adopcion: </mat-label>
             <input matInput formControlName="fechaAdopcion" type="date" required>
             <mat-error>
                 {{ getErrorMessage('fechaAdopcion') }}
             </mat-error>
+        </mat-form-field> -->
+
+        <mat-form-field class="full-width"  appearance="outline">
+            <mat-label> Fecha de adopcion: </mat-label>
+            <input matInput [matDatepicker]="fecha" formControlName="fechaAdopcion" required>
+            <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+            <mat-datepicker #fecha></mat-datepicker>
+            <mat-error>
+                {{ getErrorMessage('fechaAdopcion') }}
+            </mat-error>
         </mat-form-field>
+
 
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Raza</mat-label>
